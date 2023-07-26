@@ -1,0 +1,10 @@
+mat73                                                                         
+numpy                                                     
+matplotlib                                                                                        
+scipy                                                          
+tqdm
+sklearn
+tensorflow
+seaborn
+cebra
+ipykernel
