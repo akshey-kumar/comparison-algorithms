@@ -170,7 +170,7 @@ def prep_data(X, B, win=15):
         X_win[i] = X[i:i+win]
 
     Xwin0, Xwin1 = X_win[:,:-1,:], X_win[:,1:,:]
-    B_1 = B[win-1:]
+    B_1 = B[:-(win-1)]
     X_paired = np.array([Xwin0, Xwin1])
     X_paired = np.transpose(X_paired, axes=(1,0,2,3))
     
@@ -363,7 +363,7 @@ def train_model(X_train, B_train_1, model, optimizer, gamma, n_epochs, pca_init=
         for step, (x_train, b_train_1) in enumerate(train_dataset):
             DCC_loss, behaviour_loss, total_loss = trainer.train_step(x_train, b_train_1, gamma=gamma)
             loss_array = np.append(loss_array, [[DCC_loss, behaviour_loss, total_loss]], axis=0)
-        epochs.set_description("Losses %f %f %f" %(DCC_loss.numpy(), behaviour_loss.numpy(), total_loss.numpy()))
+        epochs.set_description("Losses: Markov, Behaviour, Total %f %f %f" %(DCC_loss.numpy(), behaviour_loss.numpy(), total_loss.numpy()))
     loss_array = np.delete(loss_array, 0, axis=0)
     loss_array = loss_array.reshape(n_epochs, int(loss_array.shape[0]//n_epochs), loss_array.shape[-1]).mean(axis=1)
     return loss_array

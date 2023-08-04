@@ -7,7 +7,7 @@ from cebra import CEBRA
 algorithm = 'cebra_h'
 
 ### Load Data (and excluding behavioural neurons)
-for worm_num in [1,2,3,4]:
+for worm_num in range(5):
 	b_neurons = [
 		'AVAR',
 		'AVAL',
@@ -31,29 +31,28 @@ for worm_num in [1,2,3,4]:
 	X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
 
 	### Deploy CEBRA
-	max_iterations = 5000
-	output_dimension = 32
-	cebra_posdir3_model = CEBRA(model_architecture='offset10-model',
-	                        batch_size=512,
-	                        learning_rate=3e-4,
-	                        temperature=1,
-	                        output_dimension=3,
-	                        max_iterations=max_iterations,
-	                        distance='cosine',
-	                        conditional='time_delta',
-	                        device='cuda_if_available',
-	                        verbose=True,
-	                        time_offsets=10)
+	cebra_hybrid_model = CEBRA(model_architecture='offset10-model',
+                        batch_size=512,
+                        learning_rate=3e-4,
+                        temperature=1,
+                        output_dimension=3,
+                        max_iterations=5000,
+                        distance='cosine',
+                        conditional='time_delta',
+                        device='cuda_if_available',
+                        verbose=True,
+                        time_offsets=10,
+                        hybrid = True)
 
-	cebra_posdir3_model.fit(X_train[:,0,0,:], B_train_1)
+	cebra_hybrid_model.fit(X_train[:,0,0,:], B_train_1.astype(float))
 	print(worm_num)
 
 	### Projecting into latent space
-	Y0_tr = cebra_posdir3_model.transform(X_train[:,0,0,:])
-	Y1_tr = cebra_posdir3_model.transform(X_train[:,1,0,:])
+	Y0_tr = cebra_hybrid_model.transform(X_train[:,0,0,:])
+	Y1_tr = cebra_hybrid_model.transform(X_train[:,1,0,:])
 
-	Y0_tst = cebra_posdir3_model.transform(X_test[:,0,0,:])
-	Y1_tst = cebra_posdir3_model.transform(X_test[:,1,0,:])
+	Y0_tst = cebra_hybrid_model.transform(X_test[:,0,0,:])
+	Y1_tst = cebra_hybrid_model.transform(X_test[:,1,0,:])
 
 	# Save the weights
 	# model.save_weights('data/generated/BunDLeNet_model_worm_' + str(worm_num))
@@ -63,3 +62,14 @@ for worm_num in [1,2,3,4]:
 	np.savetxt('data/generated/saved_Y/Y1_tst__'+algorithm+'_worm_'+ str(worm_num), Y1_tst)
 	np.savetxt('data/generated/saved_Y/B_train_1__'+algorithm+'_worm_'+ str(worm_num), B_train_1)
 	np.savetxt('data/generated/saved_Y/B_test_1__'+algorithm+'_worm_'+ str(worm_num), B_test_1)
+	'''
+	Y0_tr = np.loadtxt('data/generated/saved_Y/Y0_tr__'+algorithm+'_worm_'+ str(worm_num))
+	Y1_tr = np.loadtxt('data/generated/saved_Y/Y1_tr__'+algorithm+'_worm_'+ str(worm_num))
+	Y0_tst = np.loadtxt('data/generated/saved_Y/Y0_tst__'+algorithm+'_worm_'+ str(worm_num))
+	Y1_tst = np.loadtxt('data/generated/saved_Y/Y1_tst__'+algorithm+'_worm_'+ str(worm_num))
+	B_train_1 = np.loadtxt('data/generated/saved_Y/B_train_1__'+algorithm+'_worm_'+ str(worm_num)).astype(int)
+	B_test_1 = np.loadtxt('data/generated/saved_Y/B_test_1__'+algorithm+'_worm_'+ str(worm_num)).astype(int)
+
+	plot_phase_space(Y0_tr, B_train_1, state_names)
+	plot_phase_space(Y0_tst, B_test_1, state_names)
+	'''

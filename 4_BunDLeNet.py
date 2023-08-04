@@ -6,7 +6,7 @@ from functions import *
 algorithm = 'BunDLeNet'
 
 ### Load Data (and excluding behavioural neurons)
-for worm_num in range(5):
+for worm_num in [1]:
 	b_neurons = [
 		'AVAR',
 		'AVAL',

@@ -5,8 +5,9 @@ from functions import *
 
 algorithm = 'autoencoder'
 
-### Load Data (and excluding behavioural neurons)
+
 for worm_num in range(5):
+  ### Load Data (and excluding behavioural neurons)
   b_neurons = [
     'AVAR',
     'AVAL',
@@ -24,7 +25,7 @@ for worm_num in range(5):
 
   ### Preprocess and prepare data for BundLe Net
   time, X = preprocess_data(X, data.fps)
-  X_, B_ = prep_data(X, B, win=15)
+  X_, B_ = prep_data(X, B, win=1)
 
   ## Train test split 
   X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
@@ -92,8 +93,6 @@ for worm_num in range(5):
   np.savetxt('data/generated/saved_Y/Y1_tst__'+algorithm+'_worm_'+ str(worm_num), Y1_tst)
   np.savetxt('data/generated/saved_Y/B_train_1__'+algorithm+'_worm_'+ str(worm_num), B_train_1)
   np.savetxt('data/generated/saved_Y/B_test_1__'+algorithm+'_worm_'+ str(worm_num), B_test_1)
-
-
 
 
 

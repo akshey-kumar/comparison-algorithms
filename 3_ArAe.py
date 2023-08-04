@@ -24,7 +24,7 @@ for worm_num in range(5):
 
     ### Preprocess and prepare data for BundLe Net
     time, X = preprocess_data(X, data.fps)
-    X_, B_ = prep_data(X, B, win=15)
+    X_, B_ = prep_data(X, B, win=1)
 
     ### Train test split 
     X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
