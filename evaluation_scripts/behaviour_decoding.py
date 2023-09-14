@@ -22,7 +22,7 @@ Y1_tst = Y1_tst.reshape(Y1_tst.shape[0],-1)
 Ydiff_tr = Y1_tr - Y0_tr
 Ydiff_tst = Y1_tst - Y0_tst
 
-### Behaviour decodability
+### Behaviour decodability evaluation
 acc_list = []
 for i in tqdm(np.arange(10)):
     b_predictor = tf.keras.Sequential([layers.Dense(8, activation='linear')]) 

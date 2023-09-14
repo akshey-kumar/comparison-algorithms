@@ -5,8 +5,8 @@ from functions import *
 
 algorithm = 'PCA'
 
-### Load Data (and excluding behavioural neurons)
 for worm_num in range(5):
+	### Load Data (and excluding behavioural neurons)
 	b_neurons = [
 		'AVAR',
 		'AVAL',
