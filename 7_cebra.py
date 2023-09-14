@@ -30,7 +30,7 @@ for worm_num in range(5):
 	## Train test split 
 	X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
 
-	### Deploy CEBRA
+	### Deploy CEBRA hybrid
 	cebra_hybrid_model = CEBRA(model_architecture='offset10-model',
                         batch_size=512,
                         learning_rate=3e-4,

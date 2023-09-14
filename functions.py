@@ -496,6 +496,56 @@ def plotting_neuronal_behavioural(X,B, state_names=[], vmin=0, vmax=2):
     axs[1].set_yticks([])
     plt.show()
 
+def plotting_neuronal_behavioural(X, B, state_names=[], vmin=0, vmax=2):
+    fig = plt.figure(figsize=(10, 6))
+    gs = fig.add_gridspec(2, 1, height_ratios=[1.5, 0.5], hspace=0.5)
+    ax0 = fig.add_subplot(gs[0])
+    ax1 = fig.add_subplot(gs[1])
+    im0 = ax0.imshow(X.T, aspect='auto', vmin=vmin, vmax=vmax, interpolation='None')
+    cax0 = plt.colorbar(im0, ax=ax0)
+    ax0.set_xlabel("time $t$")
+    ax0.set_ylabel("Neuronal activation")
+    colors = sns.color_palette('pastel', len(state_names))
+    cmap = cm.colors.ListedColormap(colors)
+    cmap = plt.get_cmap('Pastel1', np.max(B) - np.min(B) + 1)
+    im1 = ax1.imshow([B], cmap=cmap, vmin=np.min(B) - 0.5, vmax=np.max(B) + 0.5, aspect='auto')
+    cax = plt.colorbar(im1, ticks=np.arange(np.min(B), np.max(B) + 1))
+    if state_names != []:
+        cax.ax.set_yticklabels(state_names)
+    ax1.set_xlabel("time $t$")
+    ax1.set_ylabel("Behaviour")
+    ax1.set_yticks([])
+    plt.show()
+
+def plotting_neuronal_behavioural(X, B, state_names=[], vmin=0, vmax=2):
+    plt.figure(figsize=(12, 8))
+    
+    # Neuronal Activation Plot
+    plt.subplot(2, 1, 1)
+    im0 = plt.imshow(X.T, aspect='auto', vmin=vmin, vmax=vmax, interpolation='None', cmap='viridis')
+    cax0 = plt.colorbar(im0, orientation='vertical', fraction=0.05, pad=0.02)
+    plt.xlabel("Time $t$")
+    plt.ylabel("Neuronal Activation")
+    plt.title("Neuronal Traces")
+    
+    # Behaviour Plot
+    plt.subplot(2, 1, 2)
+    colors = sns.color_palette('pastel', len(state_names))
+    cmap = cm.colors.ListedColormap(colors)
+    cmap = plt.get_cmap('Pastel1', np.max(B) - np.min(B) + 1)
+    im1 = plt.imshow([B], cmap=cmap, vmin=np.min(B) - 0.5, vmax=np.max(B) + 0.5, aspect='auto')
+    cax1 = plt.colorbar(im1, ticks=np.arange(np.min(B), np.max(B) + 1), orientation='vertical', fraction=0.05, pad=0.02)
+    if state_names != []:
+        cax1.ax.set_yticklabels(state_names)
+    plt.xlabel("Time $t$")
+    plt.ylabel("Behavioural State")
+    plt.title("Behavioural Labels")
+    
+    plt.tight_layout()  # Adjust layout for better spacing
+    
+    plt.show()
+
+
 
 def plot_phase_space(Y, B, state_names, show_points=False, legend=True, **kwargs):
     fig = plt.figure(figsize=(8,8))
