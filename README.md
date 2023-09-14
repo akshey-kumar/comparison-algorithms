@@ -13,5 +13,6 @@ Our repository is designed for easy replication of evaluations of embeddings for
 - Evaluations of these saved embeddings are performed using scripts located in the `evaluation_scripts/` directory.
 - Within `evaluation_scripts/`, you'll find scripts like `microvariable_evaluation.py`, `behaviour_decoding.py`, and `dynamics_predictability.py`, which conduct various evaluations.
 - To run all evaluations for every worm and algorithm, you can use the `run_evaluations.sh` bash script.
+- Finally, plotting of the metrics for the various algorithms is done in plotting.ipynb
 
 In summary, if you wish to recompute an embedding using a specific method for a given dataset, consult the scripts labeled `i_<algorithm>.py`, where 'i' ranges from 1 to 7. If you intend to re-evaluate a specific algorithm's embedding for a particular dataset, refer to the code within `run_evaluations.sh`.
