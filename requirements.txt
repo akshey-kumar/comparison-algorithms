@@ -1,10 +1,10 @@
-mat73                                                                         
-numpy                                                     
-matplotlib                                                                                        
-scipy                                                          
+mat73
+numpy
 tqdm
-sklearn
+scipy
+matplotlib
 tensorflow
+scikit-learn
 seaborn
 cebra
 ipykernel
