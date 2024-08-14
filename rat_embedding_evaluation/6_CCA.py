@@ -1,11 +1,13 @@
 import numpy as np
-from cebra import CEBRA
 from ncmcm.bundlenet.utils import prep_data, timeseries_train_test_split
+from sklearn.cross_decomposition import CCA
 
-algorithm = 'cebra_h'
+
+algorithm = 'CCA'
 
 for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
-    ### Load data
+    print(rat_name)
+    # Load data
     data = np.load(f'data/raw/rat_hippocampus/{rat_name}.npz')
     x, b = data['x'], data['b']
     x = x - np.min(x)  # cebra doesn't work otherwise if there are negative values
@@ -15,28 +17,19 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     # Train test split
     x_train, x_test, b_train_1, b_test_1 = timeseries_train_test_split(x_, b_)
 
-    # Deploy CEBRA hybrid
-    cebra_hybrid_model = CEBRA(model_architecture='offset10-model',
-                               batch_size=512,
-                               learning_rate=3e-4,
-                               temperature=1,
-                               output_dimension=3,
-                               max_iterations=5000,
-                               distance='cosine',
-                               conditional='time_delta',
-                               device='cuda_if_available',
-                               verbose=True,
-                               time_offsets=10,
-                               hybrid=True)
-
-    cebra_hybrid_model.fit(x_train[:, 0, 0, :], b_train_1.astype(float))
+    # Deploy CCA
+    dim = 3
+    cca = CCA(n_components=dim)
+    cca.fit(x_train[:, 0, 0, :], b_train_1)
+    print('Accuracy of CCA on train data', cca.score(x_train[:, 0, 0, :], b_train_1))
+    print('Accuracy of CCA on test data', cca.score(x_test[:, 0, 0, :], b_test_1))
 
     # Projecting into latent space
-    y0_tr = cebra_hybrid_model.transform(x_train[:, 0, 0, :])
-    y1_tr = cebra_hybrid_model.transform(x_train[:, 1, 0, :])
+    y0_tr = cca.transform(x_train[:, 0, 0, :])
+    y1_tr = cca.transform(x_train[:, 1, 0, :])
 
-    y0_tst = cebra_hybrid_model.transform(x_test[:, 0, 0, :])
-    y1_tst = cebra_hybrid_model.transform(x_test[:, 1, 0, :])
+    y0_tst = cca.transform(x_test[:, 0, 0, :])
+    y1_tst = cca.transform(x_test[:, 1, 0, :])
 
     # Save the weights
     # model.save_weights(f'data/generated/{algorithm}_model_rat_{rat_name}')
