@@ -29,46 +29,7 @@ for worm_num in [1]:
     B = data.behaviour
     state_names = ['Dorsal turn', 'Forward', 'No state', 'Reverse-1', 'Reverse-2', 'Sustained reversal', 'Slowing',
                    'Ventral turn']
-
-    # Preprocess and prepare data for BunDLe Net
-    # time, X = preprocess_data(X, data.fps)
-    X_, B_ = prep_data(X, B, win=15)
-
-    # Train test split
-    X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
-
-    # Deploy BunDLe Net
-    model = BunDLeNet(latent_dim=3, num_behaviour=len(data.behaviour_names))
-    train_history, test_history = train_model(
-        X_train,
-        B_train_1,
-        model,
-        b_type='discrete',
-        gamma=0.9,
-        learning_rate=0.001,
-        n_epochs=1000,
-        validation_data=(X_test, B_test_1),
-        # best_of_5_init=True
-
-    )
-
-    plt.figure()
-    for i, label in enumerate([
-        r"$\mathcal{L}_{\mathrm{Markov}}$",
-        r"$\mathcal{L}_{\mathrm{Behavior}}$",
-        r"Train loss $\mathcal{L}$"
-    ]):
-        plt.plot(train_history[:, i], label=label)
-    plt.legend()
-    plt.show()
-
-    # Projecting into latent space
-    Y0_tr = model.tau(X_train[:, 0]).numpy()
-    Y1_tr = model.tau(X_train[:, 1]).numpy()
-
-    Y0_tst = model.tau(X_test[:, 0]).numpy()
-    Y1_tst = model.tau(X_test[:, 1]).numpy()
-
+c
     # Save the weights
     # model.save_weights('data/generated/BunDLeNet_model_worm_' + str(worm_num))
     print(f'data/generated/saved_Y/Y0_tr__{algorithm}_worm_{worm_num}')

@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
-import sklearn
+from sklearn import metrics
 
 algorithm = sys.argv[1]
 rat_name = sys.argv[2]
@@ -46,7 +46,7 @@ for i in tqdm(np.arange(10)):
 	)
 	
 	b1_tst_pred = b_predictor(y1_tst).numpy()
-	r2_score = sklearn.metrics.r2_score(b1_tst_pred, b_test_1)
+	r2_score = metrics.r2_score(b1_tst_pred, b_test_1)
 	print(r2_score)
 	r2_list.append(r2_score)
 

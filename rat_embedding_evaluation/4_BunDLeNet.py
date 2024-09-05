@@ -1,6 +1,7 @@
 import sys
 # sys.path.append(r'../')
 import numpy as np
+
 from ncmcm.bundlenet.bundlenet import BunDLeNet, train_model
 from ncmcm.bundlenet.utils import prep_data, timeseries_train_test_split
 import matplotlib.pyplot as plt
