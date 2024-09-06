@@ -1,6 +1,3 @@
-# Data files (these are too large so just transfer them using some other means (eg: ucloud))
-data/generated
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
