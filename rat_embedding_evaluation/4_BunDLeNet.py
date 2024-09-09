@@ -62,6 +62,5 @@ for rat_name in ['achilles', 'gatsby','cicero', 'buddy']:
     np.savetxt(f'data/generated/saved_Y/b_train_1__{algorithm}_rat_{rat_name}', b_train_1)
     np.savetxt(f'data/generated/saved_Y/b_test_1__{algorithm}_rat_{rat_name}', b_test_1)
 
-
 plt.show()
 

@@ -3,7 +3,7 @@ import sys
 import numpy as np
 import tensorflow as tf
 from tqdm import tqdm
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, r2_score
 
 algorithm = sys.argv[1]
 rat_name = sys.argv[2]
@@ -26,13 +26,14 @@ ydiff_tst = y1_tst - y0_tst
 
 # Dynamics predictability evaluation
 mse_list = []
+r2_list = []
 for i in tqdm(np.arange(10)):
     # Scaling input and output data
     yinmax = (np.abs(y0_tr)).max()  # Parameters for scaling
     y0_tr, y0_tst = y0_tr / yinmax, y0_tst / yinmax
     ydmax = (np.abs(ydiff_tr)).max()  # Parameters for scaling
     ydiff_tr, ydiff_tst = ydiff_tr / ydmax, ydiff_tst / ydmax
-
+    print(ydiff_tr)
     # Defining the model
     model_ydiff_f_yt = tf.keras.Sequential([
         tf.keras.layers.Dense(3, activation='linear')])
@@ -66,14 +67,19 @@ for i in tqdm(np.arange(10)):
     modelmse_tr = mean_squared_error(flat_partial(y1_tr), flat_partial(y1_tr_pred))
     baseline_tst = mean_squared_error(flat_partial(y1_tst), flat_partial(y0_tst))
     modelmse_tst = mean_squared_error(flat_partial(y1_tst), flat_partial(y1_tst_pred))
-    print(baseline_tr)
-    print(modelmse_tr)
-    print(baseline_tst)
-    print(modelmse_tst)
 
     mse_list.append([baseline_tr, modelmse_tr, baseline_tst, modelmse_tst])
 
+    r2_baseline_tr = r2_score(flat_partial(y1_tr), flat_partial(y0_tr))
+    r2_model_tr = r2_score(flat_partial(y1_tr), flat_partial(y1_tr_pred))
+    r2_baseline_tst = r2_score(flat_partial(y1_tst), flat_partial(y0_tst))
+    r2_model_tst = r2_score(flat_partial(y1_tst), flat_partial(y1_tst_pred))
+
+    r2_list.append([r2_baseline_tr, r2_model_tr, r2_baseline_tst, r2_model_tst])
+
 # Saving the metrics
 mse_list = np.array(mse_list)
+r2_list = np.array(r2_list)
 os.makedirs('data/generated/rat_evaluation_metrics', exist_ok=True)
 np.savetxt(f'data/generated/rat_evaluation_metrics/mse_list_{algorithm}_rat_{rat_name}', mse_list)
+np.savetxt(f'data/generated/rat_evaluation_metrics/r2_list_{algorithm}_rat_{rat_name}', r2_list)

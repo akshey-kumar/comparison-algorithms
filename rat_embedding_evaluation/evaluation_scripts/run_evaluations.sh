@@ -14,7 +14,7 @@ done
 for rat_name in 'achilles' 'gatsby' 'cicero' 'buddy'
 do
     # python3 rat_embedding_evaluation/evaluation_scripts/microvariable_evaluation.py $rat_name
-    for algorithm in 'point_embedding_noisy' # 'y_shuffled_BunDLeNet' 'BunDLeNet' 'cebra_h' 'PCA' 'CCA'
+    for algorithm in 'BunDLeNet' 'cebra_h' 'PCA' 'CCA' 'y_shuffled_BunDLeNet' 'linear_dynamics' # 'linear_dynamics' 'point_embedding_noisy' 'y_shuffled_BunDLeNet' # 'BunDLeNet' 'cebra_h' 'PCA' 'CCA'
     do
         # python3 rat_embedding_evaluation/evaluation_scripts/behaviour_decoding.py $algorithm $rat_name
         python3 rat_embedding_evaluation/evaluation_scripts/dynamics_predictability.py $algorithm $rat_name

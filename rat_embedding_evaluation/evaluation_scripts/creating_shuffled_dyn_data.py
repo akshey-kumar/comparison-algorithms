@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 # creating shuffled data
 for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
-    """
+
     algorithm = 'BunDLeNet'
     print(algorithm, ' rat_name: ', rat_name)
 
@@ -24,10 +24,13 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     print(y0_tr.shape, y1_tr.shape, y0_tst.shape, y1_tst.shape)
     print(b_train_1.shape, b_test_1.shape)
 
-    y0_tr_sh = np.random.permutation(y0_tr)
-    y1_tr_sh = np.random.permutation(y1_tr)
-    y0_tst_sh = np.random.permutation(y0_tst)
-    y1_tst_sh = np.random.permutation(y1_tst)
+    # creating shuffled bundle net trajectory (no dynamical information )
+    y_tr_sh = np.random.permutation(y0_tr)
+    y0_tr_sh = y_tr_sh[:-1]
+    y1_tr_sh = y_tr_sh[1:]
+    y_tst_sh = np.random.permutation(y0_tst)
+    y0_tst_sh = y_tst_sh[:-1]
+    y1_tst_sh = y_tst_sh[1:]
 
     algorithm = 'y_shuffled_BunDLeNet'
     file_pattern = f'data/generated/saved_Y/{{}}__{algorithm}_rat_{rat_name}'
@@ -38,11 +41,13 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     np.savetxt(file_pattern.format('b_train_1'), b_train_1)
     np.savetxt(file_pattern.format('b_test_1'), b_test_1)
 
-    # creating point embedding
-    y0_tr_point = np.ones_like(y0_tr) + 0.001*np.random.rand(y0_tr.shape[0], y0_tr.shape[1])
-    y1_tr_point = np.ones_like(y1_tr) + 0.001*np.random.rand(y1_tr.shape[0], y1_tr.shape[1])
-    y0_tst_point = np.ones_like(y0_tst) + 0.001*np.random.rand(y0_tst.shape[0], y0_tst.shape[1])
-    y1_tst_point = np.ones_like(y1_tst) + 0.001*np.random.rand(y1_tst.shape[0], y1_tst.shape[1])
+    # creating point embedding dynamics with tiny spinkling of gaussina noise
+    y_tr_point = np.ones_like(y0_tr) + 0.001*np.random.rand(y0_tr.shape[0], y0_tr.shape[1])
+    y0_tr_point = y_tr_point[:-1]
+    y1_tr_point = y_tr_point[1:]
+    y_tst_point = np.ones_like(y0_tst) + 0.001*np.random.rand(y0_tst.shape[0], y0_tst.shape[1])
+    y0_tst_point = y_tst_point[:-1]
+    y1_tst_point = y_tst_point[1:]
 
     algorithm = 'point_embedding_noisy'
     file_pattern = f'data/generated/saved_Y/{{}}__{algorithm}_rat_{rat_name}'
@@ -52,8 +57,8 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     np.savetxt(file_pattern.format('y1_tst'), y1_tst_point)
     np.savetxt(file_pattern.format('b_train_1'), b_train_1)
     np.savetxt(file_pattern.format('b_test_1'), b_test_1)
-    """
-    algorithm = 'linear_dynamics'
+
+    # creating linear dynamics (maximal dynamical information)
     def linear_dynamics_generator(sequence_length):
         theta = 0.01
         T_Y = np.array([[np.cos(theta)*np.cos(3*theta), - np.sin(theta), - np.sin(3*theta)],
@@ -65,17 +70,14 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
             y.append( T_Y @ y[-1] )
         return np.array(y)
 
+    y_tr_linear = linear_dynamics_generator(y0_tr.shape[0])
+    y0_tr_linear = y_tr_linear[:-1]
+    y1_tr_linear = y_tr_linear[1:]
+    y_tst_linear = linear_dynamics_generator(y0_tst.shape[0])
+    y0_tst_linear = y_tst_linear[:-1]
+    y1_tst_linear = y_tst_linear[1:]
 
-    y0_tr = np.zeros((3232,3))
-    y1_tr = np.zeros((3232,3))
-    y0_tst = np.zeros((3232,3))
-    y1_tst = np.zeros((3232,3))
-
-    y0_tr_linear = linear_dynamics_generator(y0_tr.shape[0])
-    y1_tr_linear = linear_dynamics_generator(y1_tr.shape[0])
-    y0_tst_linear = linear_dynamics_generator(y0_tst.shape[0])
-    y1_tst_linear = linear_dynamics_generator(y1_tst.shape[0])
-
+    algorithm = 'linear_dynamics'
     file_pattern = f'data/generated/saved_Y/{{}}__{algorithm}_rat_{rat_name}'
     np.savetxt(file_pattern.format('y0_tr'), y0_tr_linear)
     np.savetxt(file_pattern.format('y1_tr'), y1_tr_linear)
