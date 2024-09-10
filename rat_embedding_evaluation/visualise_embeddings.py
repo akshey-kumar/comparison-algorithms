@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from ncmcm.visualisers.latent_space import LatentSpaceVisualiser
 
-algorithm = sys.argv[1]
-rat_name = sys.argv[2]
+algorithm = sys.argv[1] # 'BunDLeNet' 'cebra_h' 'PCA' 'CCA' 'y_shuffled_BunDLeNet' 'linear_dynamics' # 'linear_dynamics' 'point_embedding_noisy' 'y_shuffled_BunDLeNet' # 'BunDLeNet' 'cebra_h' 'PCA' 'CCA'
+rat_name = sys.argv[2] # 'achilles' 'gatsby' 'cicero' 'buddy'
 # Plotting
 
 y0_tr = np.loadtxt(f'data/generated/saved_Y/y0_tr__{algorithm}_rat_{rat_name}')
