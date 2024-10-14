@@ -10,7 +10,7 @@ done
 "
 
 ## Performing evaluation of embeddings of various algorithms for all rats
-# Loop for behaviour_decoding.py and dynamics_predictability.py
+# Loop for behaviour_decoding_analysis.py and dynamics_predictability.py
 for rat_name in 'gatsby' #'achilles' 'gatsby' 'cicero' 'buddy'
 do
     # python3 rat_embedding_evaluation/evaluation_scripts/microvariable_evaluation.py $rat_name

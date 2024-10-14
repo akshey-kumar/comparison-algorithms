@@ -27,7 +27,6 @@ X = data.neuron_traces.T
 B = data.behaviour
 
 # Preprocess and prepare data for BunDLe Net
-# time, X = preprocess_data(X, data.fps)
 X_, B_ = prep_data(X, B, win=15)
 
 # Train test split
