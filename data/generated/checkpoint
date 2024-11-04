@@ -1,2 +1,2 @@
-model_checkpoint_path: "BunDLeNet_model_rat_gatsby"
-all_model_checkpoint_paths: "BunDLeNet_model_rat_gatsby"
+model_checkpoint_path: "BunDLeNet_model_worm_0_gamma_0.9"
+all_model_checkpoint_paths: "BunDLeNet_model_worm_0_gamma_0.9"

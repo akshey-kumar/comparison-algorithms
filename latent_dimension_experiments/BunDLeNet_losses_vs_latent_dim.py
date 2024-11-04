@@ -55,11 +55,11 @@ for latent_dim in [1,2,3,4,5,6,7,8,9,10]:
             "total_test_loss": test_history[-1,-1]
         })
 
-print(results)
-np.save(f'latent_dimension_experiments/losses_vs_dim_{algorithm}.npy', results)
+        print(results)
+        np.save(f'latent_dimension_experiments/losses_vs_latent_dim_{algorithm}.npy', results)
 
 # Plotting
-results = np.load(f'latent_dimension_experiments/losses_vs_dim_{algorithm}.npy', allow_pickle=True)
+results = np.load(f'latent_dimension_experiments/losses_vs_latent_dim_{algorithm}.npy', allow_pickle=True)
 df = pd.DataFrame.from_dict(list(results))
 print(df.head())
 

@@ -28,7 +28,7 @@ for rat_name in ['achilles', 'gatsby','cicero', 'buddy']:
         gamma=0.9,
         learning_rate=0.001,
         n_epochs=500,
-        initialisation=None,
+        initialisation='best_of_5_init',
         validation_data=(x_test, b_test_1),
     )
 
