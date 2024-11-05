@@ -10,7 +10,7 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     x, b = data['x'], data['b']
     x = x - np.min(x)  # cebra doesn't work otherwise if there are negative values
     np.where(x < 0)
-    x_, b_ = prep_data(x, b, win=1)
+    x_, b_ = prep_data(x, b, win=20)
 
     # Train test split
     x_train, x_test, b_train_1, b_test_1 = timeseries_train_test_split(x_, b_)
@@ -34,7 +34,6 @@ for rat_name in ['achilles', 'gatsby', 'cicero', 'buddy']:
     # Projecting into latent space
     y0_tr = cebra_hybrid_model.transform(x_train[:, 0, 0, :])
     y1_tr = cebra_hybrid_model.transform(x_train[:, 1, 0, :])
-
     y0_tst = cebra_hybrid_model.transform(x_test[:, 0, 0, :])
     y1_tst = cebra_hybrid_model.transform(x_test[:, 1, 0, :])
 

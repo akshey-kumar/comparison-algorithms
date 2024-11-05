@@ -1,0 +1,6 @@
+Minimum validation loss: 0.01003866701386869
+Best hyperparameters found were:
+win: 22.56747550051196
+learning_rate: 0.009777451377614613
+latent_dim: 2.2184564993859635
+n_epochs: 140.0042808279462
