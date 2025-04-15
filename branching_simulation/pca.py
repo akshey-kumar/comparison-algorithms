@@ -1,0 +1,69 @@
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+from ncmcm.bundlenet.utils import prep_data, timeseries_train_test_split
+from sklearn.decomposition import PCA
+
+algorithm = 'PCA'
+b_function = 'trinary_behaviour'
+
+# Load x and b
+x = np.load(f"branching_simulation/data/x_{b_function}.npy")
+b = np.load(f"branching_simulation/data/b_{b_function}.npy")
+print(x.shape, b.shape)
+
+
+x_, b_, t_ = [], [], []
+for i, _ in enumerate(x):
+    x_trial, b_trial = prep_data(x[i], b[i], win=1)
+    x_.append(x_trial)
+    b_.append(b_trial)
+    t_.append(np.arange(b_trial.shape[0]))
+
+
+x_ = np.concatenate(x_, axis=0)
+b_ = np.concatenate(b_, axis=0)
+t_ = np.concatenate(t_, axis=0)
+print(x_.shape, b_.shape, t_.shape)
+
+show_plots = True
+if show_plots:
+    plt.plot(x_[:,-1,0,:])
+    plt.plot(b_, '--')
+    plt.show()
+
+
+# x_, b_ = prep_data(x, b, win=1)
+
+# Train test split
+x_train, x_test, b_train_1, b_test_1 = timeseries_train_test_split(x_, b_)
+x_train, x_test, t_train_1, t_test_1 = timeseries_train_test_split(x_, t_)
+
+# PCA
+dim = 3
+pca = PCA(n_components=dim)
+pca.fit(x_train[:, 0, 0, :])
+print('Percentage of variance explained by the first ', dim, ' PCs: ',
+      pca.explained_variance_ratio_[:dim].sum().round(3))
+
+# Projecting into latent space
+y0_tr = pca.transform(x_train[:, 0, 0, :])
+y1_tr = pca.transform(x_train[:, 1, 0, :])
+
+y0_tst = pca.transform(x_test[:, 0, 0, :])
+y1_tst = pca.transform(x_test[:, 1, 0, :])
+
+# Save the weights
+# model.save_weights(f'data/generated/BunDLeNet_model_branching_simulated')
+print(f'data/generated/saved_Y/y0_tr__{algorithm}_branching_simulated')
+np.savetxt(f'data/generated/saved_Y/y0_tr__{algorithm}_branching_simulated_{b_function}', y0_tr)
+np.savetxt(f'data/generated/saved_Y/y1_tr__{algorithm}_branching_simulated_{b_function}', y1_tr)
+np.savetxt(f'data/generated/saved_Y/y0_tst__{algorithm}_branching_simulated_{b_function}', y0_tst)
+np.savetxt(f'data/generated/saved_Y/y1_tst__{algorithm}_branching_simulated_{b_function}', y1_tst)
+np.savetxt(f'data/generated/saved_Y/b_train_1__{algorithm}_branching_simulated_{b_function}', b_train_1)
+np.savetxt(f'data/generated/saved_Y/b_test_1__{algorithm}_branching_simulated_{b_function}', b_test_1)
+np.savetxt(f'data/generated/saved_Y/t_train_1__{algorithm}_branching_simulated_{b_function}', t_train_1)
+np.savetxt(f'data/generated/saved_Y/t_test_1__{algorithm}_branching_simulated_{b_function}', t_test_1)
+plt.show()
+
+
