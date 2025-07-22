@@ -1,12 +1,12 @@
 import os
-"""
 import sys
 sys.path.append("../..")
 sys.path.append("..")
 print(sys.path)
-from c_elegans_embedding_evaluation.functions import *
 
-"""
+from functions import *
+
+
 import os
 import sys
 import numpy as np
@@ -33,11 +33,12 @@ data = Database(data_set_no=worm_num)
 data.exclude_neurons(b_neurons)
 X = data.neuron_traces.T
 B = data.states
-time, X = preprocess_data(X, data.fps)
+time, X = preprocess_data(X, float(data.fps))
 X_, B_ = prep_data(X, B, win=15)
 X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
 X1_tr = X_train[:,1,:,:]
 X1_tst = X_test[:,1,:,:]
+print(X1_tr.shape, X1_tst.shape)
 os.chdir(current_dir)
 
 ### Behavioural prediction accuracy directly from neuronal data
@@ -67,7 +68,8 @@ for i in tqdm(np.arange(50)):
 	acc_list.append(accuracy_score(B1_tst_pred, B_test_1))
 
 acc_list = np.array(acc_list)
-np.savetxt('data/generated/evaluation_metrics/acc_list_X_worm_' +  str(worm_num), acc_list)
+print(' neuronal prediction accuracy: ', acc_list.mean().round(3), ' pm ', acc_list.std().round(3))
+#np.savetxt('data/generated/evaluation_metrics/acc_list_X_worm_' +  str(worm_num), acc_list)
 
 
 
@@ -77,4 +79,4 @@ for i, _ in enumerate(chance_acc):
 	B_perm = np.random.choice(B_test_1, size=B_test_1.shape)
 	chance_acc[i] = accuracy_score(B_perm, B_test_1)
 print('Chance prediction accuracy: ', chance_acc.mean().round(3), ' pm ', chance_acc.std().round(3))
-np.savetxt('data/generated/evaluation_metrics/acc_list_chance_worm_' +  str(worm_num), chance_acc)
+#np.savetxt('data/generated/evaluation_metrics/acc_list_chance_worm_' +  str(worm_num), chance_acc)

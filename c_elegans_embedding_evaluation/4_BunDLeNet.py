@@ -27,12 +27,13 @@ for worm_num in range(5):
                    'Ventral turn']
 
     ### Preprocess and prepare data for BundLe Net
-    time, X = preprocess_data(X, data.fps)
+    time, X = preprocess_data(X, float(data.fps))
     X_, B_ = prep_data(X, B, win=15)
 
     ## Train test split
     X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
-
+    print(X_train.shape, X_test.shape, B_train_1.shape, B_test_1.shape)
+    exit()
     ### Deploy BunDLe Net
     model = BunDLeNet(latent_dim=3)
     model.build(input_shape=X_train.shape)

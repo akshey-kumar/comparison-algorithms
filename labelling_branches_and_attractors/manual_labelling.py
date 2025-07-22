@@ -106,7 +106,7 @@ b_names = data.behaviour_names
 
 # loading embedding
 file_pattern = f'data/generated/comparable_embeddings/{{}}__BunDLeNet_worm_{worm_num}'
-y = np.loadtxt(file_pattern.format('Y'))
+y = np.loadtxt(file_pattern.format('Y0'))
 b = np.loadtxt(file_pattern.format('B')).astype(int)
 
 Y, B = y[:], b[:]
@@ -119,10 +119,4 @@ branch_labels = manual_labeling(Y,
                                 )
 
 print(branch_labels)
-
-vis = LatentSpaceVisualiser(
-            y=Y,
-            b=branch_labels.astype(int),
-            b_names=['1','2','3']        )
-vis.plot_phase_space(arrow_length_ratio=0.5)
 

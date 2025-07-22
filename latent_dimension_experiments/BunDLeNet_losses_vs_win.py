@@ -25,7 +25,7 @@ data.exclude_neurons(b_neurons)
 X = data.neuron_traces.T
 B = data.behaviour
 
-
+'''
 results = []
 for win in range(1,50):
 
@@ -57,17 +57,17 @@ for win in range(1,50):
 
     print(results)
     np.save(f'latent_dimension_experiments/losses_vs_win_{algorithm}.npy', results)
-
+'''
 # Plotting
 results = np.load(f'latent_dimension_experiments/losses_vs_win_{algorithm}.npy', allow_pickle=True)
 df = pd.DataFrame.from_dict(list(results))
 print(df.head())
 
-df_melted = df.melt(id_vars='latent_dim', value_vars=['markov_train_loss', 'behaviour_train_loss'],
+df_melted = df.melt(id_vars='win', value_vars=['markov_train_loss', 'behaviour_train_loss', 'total_train_loss'],
                     var_name='Loss Type', value_name='Loss')
 
 plt.figure(figsize=(10, 6))
-sns.scatterplot(data=df_melted, x='latent_dim', y='Loss', hue='Loss Type', style='Loss Type', s=100)
+sns.scatterplot(data=df_melted, x='win', y='Loss', hue='Loss Type', style='Loss Type', s=100)
 plt.xlabel('Latent Dimension')
 plt.ylabel('Train Loss')
 plt.title('Markov and Behaviour Loss vs Latent Dimension')

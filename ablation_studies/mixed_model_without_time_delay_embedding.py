@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from ncmcm.data_loaders.matlab_dataset import Database
-from ncmcm.bundlenet.bundlenet import BunDLeNet, train_model
+from ncmcm.bundlenet.bundlenet import BunDLeNet, train_model, project_into_latent_space
 from ncmcm.bundlenet.utils import prep_data, timeseries_train_test_split
 from ncmcm.visualisers.neuronal_behavioural import plotting_neuronal_behavioural
 from ncmcm.visualisers.latent_space import LatentSpaceVisualiser
@@ -35,10 +35,10 @@ X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
 for gamma in [0.9]: #[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 0.999]:
 
     # Deploy BunDLe Net
-    model = BunDLeNet(latent_dim=3, num_behaviour=len(data.behaviour_names))
+    model = BunDLeNet(latent_dim=3, num_behaviour=len(data.behaviour_names), input_shape=X_train.shape)
     train_history, test_history = train_model(
-        X_train,
-        B_train_1,
+        X_,
+        B_,
         model,
         b_type='discrete',
         gamma=gamma,
@@ -61,10 +61,11 @@ for gamma in [0.9]: #[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 0.999]:
 
 
     # Projecting into latent space
-    Y0_ = model.tau(X_[:, 0]).numpy()
+    # Y0_ = model.tau(X_[:, 0]).numpy()
+    Y0_ = project_into_latent_space(X_, model)
 
     # Save the weights
-    save_model = True
+    save_model = False
     if save_model:
         model.save_weights(f'data/generated/BunDLeNet_model_worm_{worm_num}_gamma_{gamma}')
         np.savetxt(f'data/generated/saved_Y/Y0__{algorithm}_worm_{worm_num}_gamma_{gamma}', Y0_)
@@ -74,7 +75,7 @@ for gamma in [0.9]: #[0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.99, 0.999]:
 
     # Plotting latent space dynamics
     vis = LatentSpaceVisualiser(Y0_, B_, data.behaviour_names, show_points=True)
-    # vis.plot_latent_timeseries()
-    # vis.plot_phase_space()
-    vis.rotating_plot(filename=f'figures/rotation_{algorithm}_worm_{worm_num}_gamma_{gamma}.gif', show_fig=False, arrow_length_ratio=0.01)
+    vis.plot_latent_timeseries()
+    vis.plot_phase_space()
+    # vis.rotating_plot(filename=f'figures/rotation_{algorithm}_worm_{worm_num}_gamma_{gamma}.gif', show_fig=False, arrow_length_ratio=0.01)
 plt.show()

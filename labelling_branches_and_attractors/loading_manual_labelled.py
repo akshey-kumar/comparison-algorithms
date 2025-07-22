@@ -17,7 +17,7 @@ b_names = data.behaviour_names
 '''
 # loading embedding
 file_pattern = f'data/generated/comparable_embeddings/{{}}__BunDLeNet_worm_{worm_num}'
-y = np.loadtxt(file_pattern.format('Y'))
+y = np.loadtxt(file_pattern.format('Y0'))
 b = np.loadtxt(file_pattern.format('B')).astype(int)
 
 # Start the manual labeling
