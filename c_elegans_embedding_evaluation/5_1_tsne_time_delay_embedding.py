@@ -6,6 +6,19 @@ from functions import *
 
 algorithm = 'tsne_time_delay_embedding'
 
+'''
+Best hyperparameters found were:
+perplexity: 13.372368268498056
+early_exaggeration: 31.68117393100013
+n_iter: 2423.3311374373307
+win: 10.861162643452484
+'''
+config ={
+'perplexity': 13.372368268498056,
+'early_exaggeration': 31.68117393100013,
+'n_iter': 2423.3311374373307,
+'win': 10.861162643452484,
+}
 ### Load Data (and excluding behavioural neurons)
 for worm_num in range(5):
     b_neurons = [
@@ -25,7 +38,7 @@ for worm_num in range(5):
                    'Ventral turn']
 
     ### Preprocess and prepare data for BundLe Net
-    time, X = preprocess_data(X, data.fps)
+    time, X = preprocess_data(X, float(data.fps))
     X_, B_ = prep_data(X, B, win=15)
 
     ## Train test split
@@ -37,7 +50,13 @@ for worm_num in range(5):
 
     ### Deploy tsne
     dim = 3
-    tsne = TSNE(n_components=dim, init='pca', perplexity=80)
+    tsne = TSNE(
+        n_components=dim,
+        init = 'pca',
+        perplexity = config["perplexity"],
+        early_exaggeration = config["early_exaggeration"],
+        n_iter = round(config["n_iter"]),
+    )
 
     ### Projecting into latent space
     Y0_tr = tsne.fit_transform(X0_tr)

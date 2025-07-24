@@ -27,7 +27,7 @@ for worm_num in range(5):
                    'Ventral turn']
 
     ### Preprocess and prepare data for BundLe Net
-    time, X = preprocess_data(X, data.fps)
+    time, X = preprocess_data(X, float(data.fps))
     X_, B_ = prep_data(X, B, win=1)
     print(X_.shape)
 

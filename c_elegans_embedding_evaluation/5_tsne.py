@@ -23,7 +23,7 @@ for worm_num in range(5):
 	state_names = ['Dorsal turn', 'Forward', 'No state', 'Reverse-1', 'Reverse-2', 'Sustained reversal', 'Slowing', 'Ventral turn']
 
 	### Preprocess and prepare data for BundLe Net
-	time, X = preprocess_data(X, data.fps)
+	time, X = preprocess_data(X, float(data.fps))
 	X_, B_ = prep_data(X, B, win=1)
 
 	## Train test split 

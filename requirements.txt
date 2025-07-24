@@ -1,9 +1,9 @@
+tensorflow
 mat73
 numpy
 tqdm
 scipy
 matplotlib
-tensorflow
 scikit-learn
 seaborn
 cebra

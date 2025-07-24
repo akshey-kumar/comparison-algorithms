@@ -33,7 +33,8 @@ for worm_num in range(5):
     ## Train test split
     X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
     print(X_train.shape, X_test.shape, B_train_1.shape, B_test_1.shape)
-    exit()
+    #X0_tr = X_train[:, 0, :, :].reshape(X_train.shape[0], -1)
+
     ### Deploy BunDLe Net
     model = BunDLeNet(latent_dim=3)
     model.build(input_shape=X_train.shape)

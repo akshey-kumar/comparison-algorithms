@@ -3,9 +3,33 @@ import sys
 sys.path.append(r'../')
 import numpy as np
 from functions import *
+from tensorflow.keras import layers, Model
+import tensorflow as tf
 
 algorithm = 'autoencoder_time_delay_embedding'
-
+'''
+best hyperparameters found were:
+lr: 0.00015090306528451675
+epochs: 473.1759222872058
+batch_size: 48.0
+win: 2.273178415885796
+layers_idx: 0.26465866479844247
+'''
+ config = {
+'lr': 0.00015090306528451675,
+'epochs': 473.1759222872058,
+'batch_size': 48.0,
+'win': 2.273178415885796,
+'layers_idx': 0.26465866479844247,
+ }
+# Define architectures
+architectures = [
+    [50, 10],  # Shallow Architecture
+    [100, 150, 50, 10],  # Increasing then Decreasing Architecture
+    [50, 30, 25, 10],  # Same encoder as in BunDLeNet
+    [100, 80, 60, 40, 20, 10, 10],  # Deep Architecture
+    [75, 25, 10]
+]
 for worm_num in range(5):
     ### Load Data (and excluding behavioural neurons)
     b_neurons = [
@@ -25,8 +49,8 @@ for worm_num in range(5):
                    'Ventral turn']
 
     ### Preprocess and prepare data for BundLe Net
-    time, X = preprocess_data(X, data.fps)
-    X_, B_ = prep_data(X, B, win=15)
+    time, X = preprocess_data(X, float(data.fps))
+    X_, B_ = prep_data(X, B, win=round(config["win"]))
 
     ## Train test split
     X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
@@ -37,27 +61,28 @@ for worm_num in range(5):
 
 
     ### Autoencoder architecture
+    layers_idx = int(config["layers_idx"])
+    encoder_layers = architectures[layers_idx]
     class Autoencoder(Model):
-        def __init__(self, latent_dim):
+        def __init__(self, latent_dim=3):
             super(Autoencoder, self).__init__()
             self.latent_dim = latent_dim
-            self.encoder = tf.keras.Sequential([
-                layers.Flatten(),
-                layers.Dense(50, activation='relu'),
-                layers.Dense(30, activation='relu'),
-                layers.Dense(25, activation='relu'),
-                layers.Dense(10, activation='relu'),
-                layers.Dense(latent_dim, activation='linear'),
-            ])
-            self.decoder = tf.keras.Sequential([
-                layers.Dense(latent_dim, activation='relu'),
-                layers.Dense(10, activation='relu'),
-                layers.Dense(25, activation='relu'),
-                layers.Dense(30, activation='relu'),
-                layers.Dense(50, activation='relu'),
-                layers.Dense(X0_tr.shape[-1] * X0_tr.shape[-2], activation='linear'),
-                layers.Reshape(X0_tr.shape[1:])
-            ])
+
+            encoder_layers_list = [layers.Flatten()]
+            for units in encoder_layers[:-1]:
+                encoder_layers_list.append(layers.Dense(units, activation='relu'))
+            encoder_layers_list.append(layers.Dense(encoder_layers[-1], activation='linear'))  # latent layer
+
+            self.encoder = tf.keras.Sequential(encoder_layers_list)
+
+            decoder_layers_list = []
+            # decoder symmetric to encoder except last layer reshaping
+            for units in reversed(encoder_layers[:-1]):
+                decoder_layers_list.append(layers.Dense(units, activation='relu'))
+            decoder_layers_list.append(layers.Dense(X0_tr.shape[-1] * X0_tr.shape[-2], activation='linear'))
+            decoder_layers_list.append(layers.Reshape(X0_tr.shape[1:]))
+
+            self.decoder = tf.keras.Sequential(decoder_layers_list)
 
         def call(self, x):
             encoded = self.encoder(x)
@@ -65,22 +90,23 @@ for worm_num in range(5):
             return decoded
 
 
+
     ### Deploy Autoencoder
     autoencoder = Autoencoder(latent_dim=3)
-    opt = tf.keras.optimizers.legacy.Adam(learning_rate=0.001)
+    opt = tf.keras.optimizers.legacy.Adam(learning_rate=config["lr"])
     autoencoder.compile(optimizer=opt, loss='mse', metrics=['mse'])
 
     history = autoencoder.fit(X0_tr,
                               X0_tr,
-                              epochs=150,
-                              batch_size=100,
+                              epochs=int(config["epochs"]),
+                              batch_size=int(config["batch_size"]),
                               validation_data=(X0_tst, X0_tst),
                               verbose=False
                               )
 
     X0_pred = autoencoder(X0_tst).numpy()
     modelmse_tst = mean_squared_error(flat_partial(X0_tst), flat_partial(X0_pred))
-    print('Test set mse:', modelmse_tst.round(8))
+    #print('Test set mse:', modelmse_tst.round(8))
 
     ### Projecting into latent space
     Y0_tr = autoencoder.encoder(X0_tr).numpy()
