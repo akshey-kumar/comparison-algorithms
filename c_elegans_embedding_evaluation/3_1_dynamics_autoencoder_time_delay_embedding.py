@@ -3,9 +3,33 @@ import sys
 sys.path.append(r'../')
 import numpy as np
 from functions import *
+from tensorflow.keras import layers, Model
+import tensorflow as tf
 
-algorithm = 'ArAe_time_delay_embedding'
-
+algorithm = 'dynamics_autoencoder_time_delay_embedding'
+'''
+Best hyperparameters found were:
+lr: 0.0014057882878623295
+epochs: 109.2968251007042
+batch_size: 96.0
+win: 12.388713412623767
+layers_idx: 3.78631568228178
+'''
+config = {
+    'lr': 0.0014057882878623295,
+    'epochs': 109.2968251007042,
+    'batch_size': 96.0,
+    'win': 12.388713412623767,
+    'layers_idx': 3.78631568228178,
+}
+# dynamics autoencoder architectures (encoder)
+architectures = [
+    [50, 10],  # Shallow Architecture
+    [100, 150, 50, 10],  # Increasing then Decreasing Architecture
+    [50, 30, 25, 10],  # Same encoder as in BunDLeNet
+    [100, 80, 60, 40, 20, 10, 10],  # Deep Architecture
+    [75, 25, 10]
+]
 ### Load Data (and excluding behavioural neurons)
 for worm_num in range(5):
     b_neurons = [
@@ -42,28 +66,29 @@ for worm_num in range(5):
     Xdiff_tr, Xdiff_tst = Xdiff_tr / Xdmax, Xdiff_tst / Xdmax
 
 
-    ### ArAe architecture (autoregressor with autoencoder architecture)
+    ### dynamics autoencoder architecture
+    layers_idx = int(config["layers_idx"])
+    encoder_layers = architectures[layers_idx]
     class Autoencoder(Model):
-        def __init__(self, latent_dim):
+        def __init__(self, latent_dim=3):
             super(Autoencoder, self).__init__()
             self.latent_dim = latent_dim
-            self.encoder = tf.keras.Sequential([
-                layers.Flatten(),
-                layers.Dense(50, activation='relu'),
-                layers.Dense(30, activation='relu'),
-                layers.Dense(25, activation='relu'),
-                layers.Dense(10, activation='relu'),
-                layers.Dense(latent_dim, activation='linear'),
-            ])
-            self.decoder = tf.keras.Sequential([
-                layers.Dense(latent_dim, activation='relu'),
-                layers.Dense(10, activation='relu'),
-                layers.Dense(25, activation='relu'),
-                layers.Dense(30, activation='relu'),
-                layers.Dense(50, activation='relu'),
-                layers.Dense(X1_tr.shape[-1] * X1_tr.shape[-2], activation='linear'),
-                layers.Reshape(X1_tr.shape[1:])
-            ])
+
+            encoder_layers_list = [layers.Flatten()]
+            for units in encoder_layers:
+                encoder_layers_list.append(layers.Dense(units, activation='relu'))
+            encoder_layers_list.append(layers.Dense(latent_dim, activation='relu'))  # latent layer
+
+            self.encoder = tf.keras.Sequential(encoder_layers_list)
+
+            decoder_layers_list = []
+            # decoder symmetric to encoder except last layer reshaping
+            for units in reversed(encoder_layers):
+                decoder_layers_list.append(layers.Dense(units, activation='relu'))
+            decoder_layers_list.append(layers.Dense(X0_tr.shape[-1] * X0_tr.shape[-2], activation='linear'))
+            decoder_layers_list.append(layers.Reshape(X0_tr.shape[1:]))
+
+            self.decoder = tf.keras.Sequential(decoder_layers_list)
 
         def call(self, x):
             encoded = self.encoder(x)
@@ -71,20 +96,22 @@ for worm_num in range(5):
             return decoded
 
 
-    ArAe = Autoencoder(latent_dim=3)
-    opt = tf.keras.optimizers.legacy.Adam(learning_rate=0.001)
-    ArAe.compile(optimizer=opt, loss='mse', metrics=['mse'])
-    ### Deploy ArAe
-    history = ArAe.fit(X0_tr,
-                       Xdiff_tr,
-                       epochs=50,
-                       batch_size=100,
-                       validation_data=(X0_tst, Xdiff_tst),
-                       verbose=0,
-                       )
+    dynamics_autoencoder = Autoencoder(latent_dim=3)
+    opt = tf.keras.optimizers.legacy.Adam(learning_rate=config["lr"])
+    dynamics_autoencoder.compile(optimizer=opt, loss='mse', metrics=['mse'])
+
+    history = dynamics_autoencoder.fit(
+        X0_tr,
+        Xdiff_tr,
+        epochs=int(config["epochs"]),
+        batch_size=int(config["batch_size"]),
+        validation_data=(X0_tst, Xdiff_tst),
+        verbose=False
+    )
+
     ### Predictions
-    Xdiff_tr_pred = ArAe(X0_tr).numpy()
-    Xdiff_tst_pred = ArAe(X0_tst).numpy()
+    Xdiff_tr_pred = dynamics_autoencoder(X0_tr).numpy()
+    Xdiff_tst_pred = dynamics_autoencoder(X0_tst).numpy()
 
     # Inverse scaling the data
     Xdiff_tr_pred, Xdiff_tr = Xdiff_tr_pred * Xdmax, Xdiff_tr * Xdmax
@@ -96,15 +123,12 @@ for worm_num in range(5):
     baseline_tst = mean_squared_error(flat_partial(X1_tst), flat_partial(X0_tst))
     modelmse_tst = mean_squared_error(flat_partial(X1_tst), flat_partial(X1_tst_pred))
 
-    #print('\nOn test set \n')
-    #print('Baseline mse', baseline_tst.round(8), 'Model mse:', modelmse_tst.round(8))
-
     ### Projecting into latent space
-    Y0_tr = ArAe.encoder(X0_tr).numpy()
-    Y1_tr = ArAe.encoder(X1_tr).numpy()
+    Y0_tr = dynamics_autoencoder.encoder(X0_tr).numpy()
+    Y1_tr = dynamics_autoencoder.encoder(X1_tr).numpy()
 
-    Y0_tst = ArAe.encoder(X0_tst).numpy()
-    Y1_tst = ArAe.encoder(X1_tst).numpy()
+    Y0_tst = dynamics_autoencoder.encoder(X0_tst).numpy()
+    Y1_tst = dynamics_autoencoder.encoder(X1_tst).numpy()
 
     # Save the weights
     # model.save_weights('data/generated/BunDLeNet_model_worm_' + str(worm_num))

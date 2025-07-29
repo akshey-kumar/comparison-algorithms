@@ -1,0 +1,7 @@
+Minimum mse: 0.006040188511397112
+Best hyperparameters found were:
+lr: 0.004615734724742974
+epochs: 2.688858462125974
+batch_size: 96.0
+win: 4.092809948128315
+hidden_dim: 64.0

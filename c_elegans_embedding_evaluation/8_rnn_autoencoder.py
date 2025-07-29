@@ -1,16 +1,26 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, Model, optimizers, losses
 from sklearn.metrics import mean_squared_error
-from functions import Database, preprocess_data, prep_data, timeseries_train_test_split, plot_latent_timeseries
 
-# best hyperparameters found from tuning were:
+#from functions import plot_phase_space
+from functions import Database, preprocess_data, prep_data, timeseries_train_test_split, plot_latent_timeseries, plot_phase_space
+
+'''
+Best hyperparameters found were:
+lr: 0.00011406197447256956
+epochs: 637.94308636602
+batch_size: 96.0
+win: 7.787597458518314
+hidden_dim: 64.0
+'''
 config = {
-    'lr': 0.0005096067531892613 ,
-    'epochs': 100, #int(1614.8131428890506),
-    'batch_size': int(52.136172155693295),
-    'win': int(5.341348373587461),
-    'hidden_dim': int(167.28320332656327),
+    'lr': 0.00011406197447256956,
+    'epochs': 637.94308636602,
+    'batch_size': 96.0,
+    'win': 7.787597458518314,
+    'hidden_dim': 64.0,
 }
 
 class RnnAutoencoder(tf.keras.Model):
@@ -20,7 +30,7 @@ class RnnAutoencoder(tf.keras.Model):
         self.latent_dim = latent_dim
 
         # Encoder GRU
-        self.encoder_rnn = layers.GRU(hidden_dim, return_sequences=False, return_state=True)
+        self.encoder_rnn = layers.GRU(hidden_dim, return_sequences=True, return_state=True)
         # projection to/from latent
         self.to_embedding = layers.Dense(latent_dim)
         self.from_embedding = layers.Dense(hidden_dim)
@@ -30,25 +40,31 @@ class RnnAutoencoder(tf.keras.Model):
         self.readout = layers.Dense(input_dim)
 
 
-
     def encode(self, x):
         _, h_enc = self.encoder_rnn(x)
+        print(h_enc.shape)
         embedding = self.to_embedding(h_enc)
+        print(embedding.shape)
         return embedding
 
-    def decode(self, embedding, seq_shape):
-        h0 = self.from_embedding(embedding)
-        h0 = tf.expand_dims(h0, axis=0)
-        dummy_input = tf.zeros(seq_shape)  # shape: (batch, time, input_dim)
-        decoded_seq, _ = self.decoder_rnn(dummy_input, initial_state=tf.squeeze(h0, axis=0))
-        #decoded_seq, _ = self.decoder_rnn(dummy_input, initial_state=h0)
-
-        return self.readout(decoded_seq)
+    def decode(self, embedding, batch_size, seq_len):
+        # Project latent embedding to initial hidden state of decoder
+        h0 = self.from_embedding(embedding)  # shape: [batch_size, hidden_dim]
+        print(h0.shape)
+        decoder_input = tf.zeros((batch_size, seq_len, self.hidden_dim))
+        print(decoder_input.shape)
+        decoded_seq, _ = self.decoder_rnn(decoder_input, initial_state=h0)
+        print(decoded_seq.shape)
+        decoder_output = self.readout(decoded_seq)  # shape: [batch_size, seq_len, input_dim]
+        print(decoder_output.shape)
+        return decoder_output
 
     def call(self, x):
+        batch_size = tf.shape(x)[0]
+        seq_len = tf.shape(x)[1]
         embedding = self.encode(x)
-        output = self.decode(embedding, tf.shape(x))
-        return output
+        reconstructed = self.decode(embedding, batch_size, seq_len)
+        return reconstructed
 
 
 # Training and evaluation
@@ -73,7 +89,7 @@ for worm_num in range(5):
 
     # prepare data (This autoencoder predicts the difference between present and future state)
     _, x = preprocess_data(x, float(data.fps))
-    x_, b_ = prep_data(x, b, win=config['win'])
+    x_, b_ = prep_data(x, b, win=int(config['win']))
 
     # train test split
     x_train, x_test, b_train, b_test = timeseries_train_test_split(x_, b_)
@@ -85,14 +101,12 @@ for worm_num in range(5):
     # Instantiate model
     model = RnnAutoencoder(
         input_dim=x0_tr.shape[-1],
-        hidden_dim=config["hidden_dim"],
+        hidden_dim=int(config["hidden_dim"]),
         latent_dim=3,
     )
-    model.build(input_shape=x0_tr.shape)#(None, x0_tr.shape[1], x0_tr.shape[-1]))  # (batch, timesteps, features)
-    model.compile(optimizer=optimizers.Adam(learning_rate=config["lr"]), loss='mse')
 
-    # Train
-    model.fit(x0_tr, x0_tr, batch_size=config["batch_size"], epochs=config["epochs"], verbose=True)
+    model.compile(optimizer=optimizers.Adam(learning_rate=config["lr"]), loss='mse')
+    model.fit(x0_tr, x0_tr, batch_size=int(config["batch_size"]), epochs=int(config["epochs"]), verbose=True)
 
     # Evaluate
     reconstructed = model.predict(x0_tr)
@@ -105,15 +119,6 @@ for worm_num in range(5):
     y0_tst = model.encode(x0_tst)
     y1_tr = model.encode(x1_tr)
     y1_tst = model.encode(x1_tst)
-
-    # Convert to numpy
-    y0_tr = y0_tr.numpy()
-    y0_tst = y0_tst.numpy()
-    y1_tr = y1_tr.numpy()
-    y1_tst = y1_tst.numpy()
-
-
-    plot_latent_timeseries(y0_tr, b_train, state_names=np.unique(b_train))
 
     # saving
     # model.save_weights('data/generated/BunDLeNet_model_worm_' + str(worm_num))

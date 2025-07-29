@@ -4,6 +4,25 @@ from functions import Database, preprocess_data, prep_data, timeseries_train_tes
 from cebra import CEBRA
 
 algorithm = 'cebra_h'
+'''
+Best hyperparameters found were:
+model_architecture: offset1-model-mse
+batch_size: 256
+learning_rate: 0.00025862916104496357
+temperature: 0.4571735639111726
+max_iterations: 2000
+distance: euclidean
+time_offsets: 5
+'''
+config = {
+	'model_architecture': 'offset1-model-mse',
+	'batch_size': 256,
+	'learning_rate': 0.00025862916104496357,
+	'temperature': 0.4571735639111726,
+	'max_iterations': 2000,
+	'distance': 'euclidean',
+	'time_offsets': 5,
+}
 
 ### Load Data (and excluding behavioural neurons)
 for worm_num in range(5):
@@ -29,19 +48,21 @@ for worm_num in range(5):
 	## Train test split 
 	X_train, X_test, B_train_1, B_test_1 = timeseries_train_test_split(X_, B_)
 
-	### Deploy CEBRA hybrid
-	cebra_hybrid_model = CEBRA(model_architecture='offset10-model',
-                        batch_size=512,
-                        learning_rate=3e-4,
-                        temperature=1,
-                        output_dimension=3,
-                        max_iterations=5000,
-                        distance='cosine',
-                        conditional='time_delta',
-                        device='cuda_if_available',
-                        verbose=True,
-                        time_offsets=10,
-                        hybrid = True)
+	# fit CEBRA hybrid
+	cebra_hybrid_model = CEBRA(
+		model_architecture=config["model_architecture"],
+		batch_size=config["batch_size"],
+		learning_rate=config["learning_rate"],
+		temperature=config["temperature"],
+		output_dimension=3,
+		max_iterations=config["max_iterations"],
+		distance=config["distance"],
+		conditional='time_delta',
+		device='cuda_if_available',
+		verbose=True,
+		time_offsets=config["time_offsets"],
+		hybrid=True
+	)
 
 	cebra_hybrid_model.fit(X_train[:,0,0,:], B_train_1.astype(float))
 	print(worm_num)

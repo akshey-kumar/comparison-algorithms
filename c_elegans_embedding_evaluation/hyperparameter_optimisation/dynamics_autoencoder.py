@@ -49,24 +49,26 @@ def train_dynamics_autoencoder(config):
     xdmax = (np.abs(xdiff_tr)).max()
     xdiff_tr, xdiff_tst = xdiff_tr / xdmax, xdiff_tst / xdmax
 
+    # define autoencoder - flexible based on selected architecture
     layers_idx = int(config["layers_idx"])
     encoder_layers = architectures[layers_idx]
-    # define autoencoder - flexible based on selected architecture
+
+    # Define Autoencoder dynamically based on selected architecture
     class Autoencoder(Model):
         def __init__(self, latent_dim=3):
             super(Autoencoder, self).__init__()
             self.latent_dim = latent_dim
 
             encoder_layers_list = [layers.Flatten()]
-            for units in encoder_layers[:-1]:
+            for units in encoder_layers:
                 encoder_layers_list.append(layers.Dense(units, activation='relu'))
-            encoder_layers_list.append(layers.Dense(encoder_layers[-1], activation='linear'))  # latent layer
+            encoder_layers_list.append(layers.Dense(latent_dim, activation='relu'))  # latent layer
 
             self.encoder = tf.keras.Sequential(encoder_layers_list)
 
             decoder_layers_list = []
             # decoder symmetric to encoder except last layer reshaping
-            for units in reversed(encoder_layers[:-1]):
+            for units in reversed(encoder_layers):
                 decoder_layers_list.append(layers.Dense(units, activation='relu'))
             decoder_layers_list.append(layers.Dense(x0_tr.shape[-1] * x0_tr.shape[-2], activation='linear'))
             decoder_layers_list.append(layers.Reshape(x0_tr.shape[1:]))
@@ -78,7 +80,7 @@ def train_dynamics_autoencoder(config):
             decoded = self.decoder(encoded)
             return decoded
 
-    dynamics_autoencoder = Autoencoder(latent_dim=encoder_layers[-1])
+    dynamics_autoencoder = Autoencoder(latent_dim=3)
     opt = tf.keras.optimizers.legacy.Adam(learning_rate=config["lr"])
     dynamics_autoencoder.compile(optimizer=opt, loss='mse', metrics=['mse'])
 

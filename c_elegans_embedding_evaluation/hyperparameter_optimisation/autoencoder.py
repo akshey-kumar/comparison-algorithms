@@ -50,15 +50,15 @@ def train_autoencoder(config):
             self.latent_dim = latent_dim
 
             encoder_layers_list = [layers.Flatten()]
-            for units in encoder_layers[:-1]:
+            for units in encoder_layers:
                 encoder_layers_list.append(layers.Dense(units, activation='relu'))
-            encoder_layers_list.append(layers.Dense(encoder_layers[-1], activation='linear'))  # latent layer
+            encoder_layers_list.append(layers.Dense(latent_dim, activation='relu'))  # latent layer
 
             self.encoder = tf.keras.Sequential(encoder_layers_list)
 
             decoder_layers_list = []
             # decoder symmetric to encoder except last layer reshaping
-            for units in reversed(encoder_layers[:-1]):
+            for units in reversed(encoder_layers):
                 decoder_layers_list.append(layers.Dense(units, activation='relu'))
             decoder_layers_list.append(layers.Dense(x0_tr.shape[-1] * x0_tr.shape[-2], activation='linear'))
             decoder_layers_list.append(layers.Reshape(x0_tr.shape[1:]))
@@ -70,7 +70,8 @@ def train_autoencoder(config):
             decoded = self.decoder(encoded)
             return decoded
 
-    autoencoder = Autoencoder(latent_dim=encoder_layers[-1])
+
+    autoencoder = Autoencoder(latent_dim=3)
     opt = tf.keras.optimizers.legacy.Adam(learning_rate=config["lr"])
     autoencoder.compile(optimizer=opt, loss='mse', metrics=['mse'])
 

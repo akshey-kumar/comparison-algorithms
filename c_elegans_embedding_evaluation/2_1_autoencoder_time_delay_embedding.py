@@ -8,19 +8,19 @@ import tensorflow as tf
 
 algorithm = 'autoencoder_time_delay_embedding'
 '''
-best hyperparameters found were:
-lr: 0.00015090306528451675
-epochs: 473.1759222872058
+Best hyperparameters found were:
+lr: 0.0012944938370286216
+epochs: 70.5806566927433
 batch_size: 48.0
-win: 2.273178415885796
-layers_idx: 0.26465866479844247
+win: 6.222169073548786
+layers_idx: 1.7970524473838463
 '''
- config = {
-'lr': 0.00015090306528451675,
-'epochs': 473.1759222872058,
+config = {
+'lr': 0.0012944938370286216,
+'epochs': 70.5806566927433,
 'batch_size': 48.0,
-'win': 2.273178415885796,
-'layers_idx': 0.26465866479844247,
+'win': 6.222169073548786,
+'layers_idx': 1.7970524473838463,
  }
 # Define architectures
 architectures = [
@@ -63,25 +63,25 @@ for worm_num in range(5):
     ### Autoencoder architecture
     layers_idx = int(config["layers_idx"])
     encoder_layers = architectures[layers_idx]
+
+
     class Autoencoder(Model):
         def __init__(self, latent_dim=3):
             super(Autoencoder, self).__init__()
             self.latent_dim = latent_dim
 
             encoder_layers_list = [layers.Flatten()]
-            for units in encoder_layers[:-1]:
+            for units in encoder_layers:
                 encoder_layers_list.append(layers.Dense(units, activation='relu'))
-            encoder_layers_list.append(layers.Dense(encoder_layers[-1], activation='linear'))  # latent layer
-
+            encoder_layers_list.append(layers.Dense(latent_dim, activation='relu'))  # latent layer
             self.encoder = tf.keras.Sequential(encoder_layers_list)
 
+            # decoder symmetric to encoder
             decoder_layers_list = []
-            # decoder symmetric to encoder except last layer reshaping
-            for units in reversed(encoder_layers[:-1]):
+            for units in reversed(encoder_layers):
                 decoder_layers_list.append(layers.Dense(units, activation='relu'))
             decoder_layers_list.append(layers.Dense(X0_tr.shape[-1] * X0_tr.shape[-2], activation='linear'))
             decoder_layers_list.append(layers.Reshape(X0_tr.shape[1:]))
-
             self.decoder = tf.keras.Sequential(decoder_layers_list)
 
         def call(self, x):
