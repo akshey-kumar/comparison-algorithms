@@ -1,0 +1,719 @@
+
+
+doi: 10.1038/nn.3776
+doi: 10.1101/2023.07.18.549575
+https://doi.org/10.1146/annurev-neuro-092619-094115
+https://doi.org/10.1016/j.neuron.2021.07.011
+https://doi.org/10.48550/arXiv.2109.04463  
+https://doi.org/10.1016/j.conb.2021.10.014
+https://doi.org/10.1523/JNEUROSCI.1669-18.2018
+https://doi.org/10.1007/s10827-022-00839-3
+
+DOI: 10.1152/jn.90941.2008
+https://doi.org/10.1038/s41467-018-06560-z
+https://doi.org/10.1038/s41592-018-0109-9
+https://doi.org/10.1038/s41586-023-06031-6
+ https://doi.org/10.1038/s41593-024-01731-2
+ https://doi.org/10.48550/arXiv.2011.08088
+ https://doi.org/10.1073/pnas.2319169120
+ https://doi.org/10.53053/CTCU7246
+ https://doi.org/10.1038/s41583-020-00395-8
+
+ https://doi.org/10.7554/eLife.10989
+ https://doi.org/10.1038/s41598-020-62089-6
+ https://doi.org/10.1162/neco_a_01097
+ https://doi.org/10.1038/nature11129
+  https://doi.org/10.7554/eLife.87881.4
+  https://doi.org/10.1038/s41583-023-00705-w
+  doi: 10.1038/s41467-018-05121-8
+  https://doi.org/10.1038/nature12160
+  https://doi.org/10.1093/biomet/28.3-4.321
+   https://doi.org/10.1038/s41586-023-06714-0
+   https://doi.org/10.1016/0047-259X(75)90042-1
+   
+https://doi.org/10.1371/journal.pcbi.1005542
+https://doi.org/10.1201/9780429492563
+ https://doi.org/10.1038/s41583-023-00740-7
+https://doi.org/10.1016/j.neuron.2018.01.004
+DOI: 10.1016/j.neuron.2016.12.041 
+https://proceedings.neurips.cc/paper/2021/file/f5cfbc876972bd0d031c8abc37344c28-Paper.pdf 
+https://doi.org/10.1038/s41593-020-00733-0
+ https://doi.org/10.7554/eLife.87881.4
+https://doi.org/10.1371/journal.pcbi.1012674
+ https://auai.org/uai2017/proceedings/papers/11.pdf
+https://doi.org/10.48550/arXiv.1707.00819
+https://doi.org/10.1523/JNEUROSCI.19-21-09557.1999
+ https://doi.org/10.1016/j.neuron.2018.01.004
+ https://doi.org/10.1007/3-540-58950-3_351
+ https://doi.org/10.1038/nature11129
+ https://doi.org/10.1016/j.conb.2021.10.014
+https://doi.org/10.1038/s41567-020-01036-8 
+https://doi.org/10.1038/nature12742 
+https://doi.org/10.1007/978-1-4612-0871-6
+ 
+@ARTICLE{MitchellHeggs2023,
+  title     = "Neural manifold analysis of brain circuit dynamics in health and
+               disease",
+  author    = "Mitchell-Heggs, Rufus and Prado, Seigfred and Gava, Giuseppe P
+               and Go, Mary Ann and Schultz, Simon R",
+  journal   = "J. Comput. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  51,
+  number    =  1,
+  pages     = "1--21",
+  month     =  feb,
+  year      =  2023,
+  keywords  = "Dimensionality reduction; Manifold learning; Neural manifolds;
+               Neural population analysis; Neurological disorders",
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+
+@ARTICLE{Cunningham2014,
+  title     = "Dimensionality reduction for large-scale neural recordings",
+  author    = "Cunningham, John P and Yu, Byron M",
+  journal   = "Nat. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  17,
+  number    =  11,
+  pages     = "1500--1509",
+  month     =  nov,
+  year      =  2014,
+  language  = "en"
+}
+
+@UNPUBLISHED{Fortunato2024,
+  title    = "Nonlinear manifolds underlie neural population activity during
+              behaviour",
+  author   = "Fortunato, C{\'a}tia and Bennasar-V{\'a}zquez, Jorge and Park,
+              Junchol and Chang, Joanna C and Miller, Lee E and Dudman, Joshua
+              T and Perich, Matthew G and Gallego, Juan A",
+  journal  = "bioRxivorg",
+  month    =  apr,
+  year     =  2024,
+  language = "en"
+}
+
+@ARTICLE{Vyas2020,
+  title     = "Computation through neural population dynamics",
+  author    = "Vyas, Saurabh and Golub, Matthew D and Sussillo, David and
+               Shenoy, Krishna V",
+  journal   = "Annu. Rev. Neurosci.",
+  publisher = "Annual Reviews",
+  volume    =  43,
+  number    =  1,
+  pages     = "249--275",
+  month     =  jul,
+  year      =  2020,
+  keywords  = "dynamical systems; neural computation; neural population
+               dynamics; state spaces",
+  language  = "en"
+}
+
+@ARTICLE{Ebitz2021,
+  title     = "The population doctrine in cognitive neuroscience",
+  author    = "Ebitz, R Becket and Hayden, Benjamin Y",
+  journal   = "Neuron",
+  publisher = "Elsevier BV",
+  volume    =  109,
+  number    =  19,
+  pages     = "3055--3068",
+  month     =  oct,
+  year      =  2021,
+  copyright = "http://www.elsevier.com/open-access/userlicense/1.0/",
+  language  = "en"
+}
+
+
+@ARTICLE{Pei2021,
+  title        = "Neural Latents Benchmark '21: Evaluating latent variable
+                  models of neural population activity",
+  author       = "Pei, Felix and Ye, Joel and Zoltowski, David and Wu, Anqi and
+                  Chowdhury, Raeed H and Sohn, Hansem and O'Doherty, Joseph E
+                  and Shenoy, Krishna V and Kaufman, Matthew T and Churchland,
+                  Mark and Jazayeri, Mehrdad and Miller, Lee E and Pillow,
+                  Jonathan and Park, Il Memming and Dyer, Eva L and
+                  Pandarinath, Chethan",
+  year         =  2021,
+  primaryClass = "cs.LG",
+  eprint       = "2109.04463"
+}
+
+@ARTICLE{Duncker2021,
+  title     = "Dynamics on the manifold: Identifying computational dynamical
+               activity from neural population recordings",
+  author    = "Duncker, Lea and Sahani, Maneesh",
+  journal   = "Curr. Opin. Neurobiol.",
+  publisher = "Elsevier BV",
+  volume    =  70,
+  pages     = "163--170",
+  month     =  oct,
+  year      =  2021,
+  language  = "en"
+}
+
+
+@ARTICLE{Pandarinath2018,
+  title     = "Latent factors and dynamics in motor cortex and their
+               application to brain-machine interfaces",
+  author    = "Pandarinath, Chethan and Ames, K Cora and Russo, Abigail A and
+               Farshchian, Ali and Miller, Lee E and Dyer, Eva L and Kao,
+               Jonathan C",
+  journal   = "J. Neurosci.",
+  publisher = "Society for Neuroscience",
+  volume    =  38,
+  number    =  44,
+  pages     = "9390--9401",
+  month     =  oct,
+  year      =  2018,
+  keywords  = "brain-machine interfaces; dynamical systems; machine learning;
+               motor control; motor cortex; neural population dynamics",
+  language  = "en"
+}
+@ARTICLE{Yu2009-xk,
+  title     = "Gaussian-process factor analysis for low-dimensional
+               single-trial analysis of neural population activity",
+  author    = "Yu, Byron M and Cunningham, John P and Santhanam, Gopal and Ryu,
+               Stephen I and Shenoy, Krishna V and Sahani, Maneesh",
+  journal   = "J. Neurophysiol.",
+  publisher = "American Physiological Society",
+  volume    =  102,
+  number    =  1,
+  pages     = "614--635",
+  month     =  jul,
+  year      =  2009,
+  language  = "en"
+}
+
+@ARTICLE{Gallego2018-mm,
+  title     = "Cortical population activity within a preserved neural manifold
+               underlies multiple motor behaviors",
+  author    = "Gallego, Juan A and Perich, Matthew G and Naufel, Stephanie N
+               and Ethier, Christian and Solla, Sara A and Miller, Lee E",
+  journal   = "Nat. Commun.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  9,
+  number    =  1,
+  pages     = "4233",
+  month     =  oct,
+  year      =  2018,
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+@ARTICLE{LFADS-Pandarinath2018-bm,
+  title     = "Inferring single-trial neural population dynamics using
+               sequential auto-encoders",
+  author    = "Pandarinath, Chethan and O'Shea, Daniel J and Collins, Jasmine
+               and Jozefowicz, Rafal and Stavisky, Sergey D and Kao, Jonathan C
+               and Trautmann, Eric M and Kaufman, Matthew T and Ryu, Stephen I
+               and Hochberg, Leigh R and Henderson, Jaimie M and Shenoy,
+               Krishna V and Abbott, L F and Sussillo, David",
+
+  journal   = "Nat. Methods",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  15,
+  number    =  10,
+  pages     = "805--815",
+  month     =  oct,
+  year      =  2018,
+  language  = "en"
+}
+
+@ARTICLE{CEBRA-Schneider2023-lr,
+  title    = "Learnable latent embeddings for joint behavioural and neural
+              analysis",
+  author   = "Schneider, Steffen and Lee, Jin Hwa and Mathis, Mackenzie
+              Weygandt",
+  journal  = "Nature",
+  volume   =  617,
+  number   =  7960,
+  pages    = "360--368",
+  month    =  may,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{DPAD-Sani2024-px,
+  title     = "Dissociative and prioritized modeling of behaviorally relevant
+               neural dynamics using recurrent neural networks",
+  author    = "Sani, Omid G and Pesaran, Bijan and Shanechi, Maryam M",
+  journal   = "Nat. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  27,
+  number    =  10,
+  pages     = "2033--2045",
+  month     =  oct,
+  year      =  2024,
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+@ARTICLE{Humphries2020-cb,
+  title        = "Strong and weak principles of neural dimension reduction",
+  author       = "Humphries, Mark D",
+  journal      = "arXiv [q-bio.NC]",
+  publisher    = "arXiv",
+  year         =  2020,
+  primaryClass = "q-bio.NC"
+}
+
+@ARTICLE{Dyer2023-wd,
+  title    = "Why the simplest explanation isn't always the best",
+  author   = "Dyer, Eva L and Kording, Konrad",
+  journal  = "Proc. Natl. Acad. Sci. U. S. A.",
+  volume   =  120,
+  number   =  52,
+  pages    = "e2319169120",
+  month    =  dec,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{Perich2024-wf,
+  title     = "Neural manifolds: Latest buzzword or pathway to understand the
+               brain?",
+  author    = "Perich, Matthew",
+  journal   = "The Transmitter",
+  publisher = "Simons Foundation",
+  year      =  2024
+}
+
+@ARTICLE{Saxe2021-bq,
+  title     = "If deep learning is the answer, what is the question?",
+  author    = "Saxe, Andrew and Nelli, Stephanie and Summerfield, Christopher",
+  journal   = "Nat. Rev. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  22,
+  number    =  1,
+  pages     = "55--67",
+  month     =  jan,
+  year      =  2021,
+  language  = "en"
+}
+
+@ARTICLE{Caruso2018-it,
+  title     = "Single neurons may encode simultaneous stimuli by switching
+               between activity patterns",
+  author    = "Caruso, Valeria C and Mohl, Jeff T and Glynn, Christopher and
+               Lee, Jungah and Willett, Shawn M and Zaman, Azeem and Ebihara,
+               Akinori F and Estrada, Rolando and Freiwald, Winrich A and
+               Tokdar, Surya T and Groh, Jennifer M",
+  journal   = "Nat. Commun.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  9,
+  number    =  1,
+  month     =  jul,
+  year      =  2018,
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+@ARTICLE{dPCA-Kobak2016-hf,
+  title     = "Demixed principal component analysis of neural population data",
+  author    = "Kobak, Dmitry and Brendel, Wieland and Constantinidis, Christos
+               and Feierstein, Claudia E and Kepecs, Adam and Mainen, Zachary F
+               and Qi, Xue-Lian and Romo, Ranulfo and Uchida, Naoshige and
+               Machens, Christian K",
+  journal   = "Elife",
+  publisher = "eLife Sciences Publications, Ltd",
+  volume    =  5,
+  month     =  apr,
+  year      =  2016,
+  copyright = "http://creativecommons.org/licenses/by/4.0/",
+  language  = "en"
+}
+
+@ARTICLE{Tombaz2020-zc,
+  title     = "Action representation in the mouse parieto-frontal network",
+  author    = "Tombaz, Tuce and Dunn, Benjamin A and Hovde, Karoline and
+               Cubero, Ryan John and Mimica, Bartul and Mamidanna, Pranav and
+               Roudi, Yasser and Whitlock, Jonathan R",
+  journal   = "Sci. Rep.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  10,
+  number    =  1,
+  pages     = "5559",
+  month     =  mar,
+  year      =  2020,
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+@ARTICLE{Dimitriadis2018-et,
+  title     = "{T-SNE} visualization of large-scale neural recordings",
+  author    = "Dimitriadis, George and Neto, Joana P and Kampff, Adam R",
+  journal   = "Neural Comput.",
+  publisher = "MIT Press - Journals",
+  volume    =  30,
+  number    =  7,
+  pages     = "1750--1774",
+  month     =  jul,
+  year      =  2018,
+  language  = "en"
+}
+
+@ARTICLE{Churchland2012-kn,
+  title     = "Neural population dynamics during reaching",
+  author    = "Churchland, Mark M and Cunningham, John P and Kaufman, Matthew T
+               and Foster, Justin D and Nuyujukian, Paul and Ryu, Stephen I and
+               Shenoy, Krishna V",
+  journal   = "Nature",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  487,
+  number    =  7405,
+  pages     = "51--56",
+  month     =  jul,
+  year      =  2012,
+  language  = "en"
+}
+
+@ARTICLE{Li2024-ua,
+  title     = "Revealing unexpected complex encoding but simple decoding
+               mechanisms in motor cortex via separating behaviorally relevant
+               neural signals",
+  author    = "Li, Yangang and Zhu, Xinyun and Qi, Yu and Wang, Yueming",
+  journal   = "Elife",
+  publisher = "eLife Sciences Publications, Ltd",
+  volume    =  12,
+  month     =  aug,
+  year      =  2024,
+  copyright = "http://creativecommons.org/licenses/by/4.0/",
+  language  = "en"
+}
+
+@ARTICLE{neuroconnectionistDoerig2023-um,
+  title    = "The neuroconnectionist research programme",
+  author   = "Doerig, Adrien and Sommers, Rowan P and Seeliger, Katja and
+              Richards, Blake and Ismael, Jenann and Lindsay, Grace W and
+              Kording, Konrad P and Konkle, Talia and van Gerven, Marcel A J
+              and Kriegeskorte, Nikolaus and Kietzmann, Tim C",
+  journal  = "Nat. Rev. Neurosci.",
+  volume   =  24,
+  number   =  7,
+  pages    = "431--450",
+  month    =  jul,
+  year     =  2023,
+  language = "en"
+}
+
+@ARTICLE{Rigotti2013-cj,
+  title     = "The importance of mixed selectivity in complex cognitive tasks",
+  author    = "Rigotti, Mattia and Barak, Omri and Warden, Melissa R and Wang,
+               Xiao-Jing and Daw, Nathaniel D and Miller, Earl K and Fusi,
+               Stefano",
+  journal   = "Nature",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  497,
+  number    =  7451,
+  pages     = "585--590",
+  month     =  may,
+  year      =  2013,
+  language  = "en"
+}
+
+@ARTICLE{Hotelling1936-ue,
+  title     = "Relations between two sets of variates",
+  author    = "Hotelling, H",
+  journal   = "Biometrika",
+  publisher = "Oxford University Press (OUP)",
+  volume    =  28,
+  number    = "3-4",
+  pages     = "321--377",
+  month     =  dec,
+  year      =  1936
+}
+
+@ARTICLE{Safaie2023-tu,
+  title     = "Preserved neural dynamics across animals performing similar
+               behaviour",
+  author    = "Safaie, Mostafa and Chang, Joanna C and Park, Junchol and
+               Miller, Lee E and Dudman, Joshua T and Perich, Matthew G and
+               Gallego, Juan A",
+  journal   = "Nature",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  623,
+  number    =  7988,
+  pages     = "765--771",
+  month     =  nov,
+  year      =  2023,
+  copyright = "https://creativecommons.org/licenses/by/4.0",
+  language  = "en"
+}
+
+@ARTICLE{Izenman1975-hy,
+  title     = "Reduced-rank regression for the multivariate linear model",
+  author    = "Izenman, Alan Julian",
+  journal   = "J. Multivar. Anal.",
+  publisher = "Elsevier BV",
+  volume    =  5,
+  number    =  2,
+  pages     = "248--264",
+  month     =  jun,
+  year      =  1975,
+  copyright = "https://www.elsevier.com/open-access/userlicense/1.0/",
+  language  = "en"
+}
+  
+ @inproceedings{NEURIPS2020_510f2318,
+	 author = {Zhou, Ding and Wei, Xue-Xin},
+	 booktitle = {Advances in Neural Information Processing Systems},
+	 editor = {H. Larochelle and M. Ranzato and R. Hadsell and M.F. Balcan and H. Lin},
+	 pages = {7234--7247},
+	 publisher = {Curran Associates, Inc.},
+	 title = {Learning identifiable and interpretable latent models of high-dimensional neural activity using pi-VAE},
+	 url = {https://proceedings.neurips.cc/paper_files/paper/2020/file/510f2318f324cf07fce24c3a4b89c771-Paper.pdf},
+	 volume = {33},
+	 year = {2020}
+	}
+	
+	
+	
+	https://doi.org/10.1371/journal.pcbi.1005542
+https://doi.org/10.1201/9780429492563
+ https://doi.org/10.1038/s41583-023-00740-7
+https://doi.org/10.1016/j.neuron.2018.01.004
+DOI: 10.1016/j.neuron.2016.12.041 
+https://proceedings.neurips.cc/paper/2021/file/f5cfbc876972bd0d031c8abc37344c28-Paper.pdf 
+https://doi.org/10.1038/s41593-020-00733-0
+ https://doi.org/10.7554/eLife.87881.4
+https://doi.org/10.1371/journal.pcbi.1012674
+ https://auai.org/uai2017/proceedings/papers/11.pdf
+https://doi.org/10.48550/arXiv.1707.00819
+https://doi.org/10.1523/JNEUROSCI.19-21-09557.1999
+ https://doi.org/10.1016/j.neuron.2018.01.004
+ https://doi.org/10.1007/3-540-58950-3_351
+ https://doi.org/10.1038/nature11129
+ https://doi.org/10.1016/j.conb.2021.10.014
+https://doi.org/10.1038/s41567-020-01036-8 
+https://doi.org/10.1038/nature12742 
+https://catalogue.library.cern/literature/7hq3d-hsc62
+
+@BOOK{Strogatz2019-nd,
+  title     = "Nonlinear dynamics and chaos",
+  author    = "Strogatz, Steven H",
+  publisher = "CRC Press",
+  edition   =  2,
+  month     =  may,
+  year      =  2019,
+  address   = "London, England",
+  language  = "en"
+}
+
+@ARTICLE{Krakauer2017-bp,
+  title     = "Neuroscience needs behavior: Correcting a reductionist bias",
+  author    = "Krakauer, John W and Ghazanfar, Asif A and Gomez-Marin, Alex and
+               MacIver, Malcolm A and Poeppel, David",
+  journal   = "Neuron",
+  publisher = "Elsevier BV",
+  volume    =  93,
+  number    =  3,
+  pages     = "480--490",
+  month     =  feb,
+  year      =  2017,
+  copyright = "http://www.elsevier.com/open-access/userlicense/1.0/",
+  language  = "en"
+}
+
+@INCOLLECTION{Cohen1995-td,
+  title     = "Three-dimensional graph drawing",
+  booktitle = "Graph Drawing",
+  author    = "Cohen, Robert F and Eades, Peter and Lin, Tao and Ruskey, Frank",
+  publisher = "Springer Berlin Heidelberg",
+  pages     = "1--11",
+  series    = "Lecture notes in computer science",
+  year      =  1995,
+  address   = "Berlin, Heidelberg"
+}
+
+@ARTICLE{Durstewitz2017-si,
+  title     = "A state space approach for piecewise-linear recurrent neural
+               networks for identifying computational dynamics from neural
+               measurements",
+  author    = "Durstewitz, Daniel",
+  journal   = "PLoS Comput. Biol.",
+  publisher = "Public Library of Science (PLoS)",
+  volume    =  13,
+  number    =  6,
+  pages     = "e1005542",
+  month     =  jun,
+  year      =  2017,
+  copyright = "http://creativecommons.org/licenses/by/4.0/",
+  language  = "en"
+}
+
+@ARTICLE{Durstewitz2023-il,
+  title     = "Reconstructing computational system dynamics from neural data
+               with recurrent neural networks",
+  author    = "Durstewitz, Daniel and Koppe, Georgia and Thurm, Max Ingo",
+  journal   = "Nat. Rev. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  24,
+  number    =  11,
+  pages     = "693--710",
+  month     =  nov,
+  year      =  2023,
+  copyright = "https://www.springernature.com/gp/researchers/text-and-data-mining",
+  language  = "en"
+}
+
+@ARTICLE{Russo2018-dj,
+  title     = "Motor cortex embeds muscle-like commands in an untangled
+               population response",
+  author    = "Russo, Abigail A and Bittner, Sean R and Perkins, Sean M and
+               Seely, Jeffrey S and London, Brian M and Lara, Antonio H and
+               Miri, Andrew and Marshall, Najja J and Kohn, Adam and Jessell,
+               Thomas M and Abbott, Laurence F and Cunningham, John P and
+               Churchland, Mark M",
+  journal   = "Neuron",
+  publisher = "Elsevier BV",
+  volume    =  97,
+  number    =  4,
+  pages     = "953--966.e8",
+  month     =  feb,
+  year      =  2018,
+  copyright = "http://www.elsevier.com/open-access/userlicense/1.0/",
+  language  = "en"
+}
+
+@inproceedings{TNDM-hurwitz2021targeted,
+title={Targeted Neural Dynamical Modeling},
+author={Cole Lincoln Hurwitz and Akash Srivastava and Kai Xu and Justin Jude and Matt Perich and Lee E. Miller and Matthias H. Hennig},
+booktitle={Advances in Neural Information Processing Systems},
+editor={A. Beygelzimer and Y. Dauphin and P. Liang and J. Wortman Vaughan},
+year={2021},
+url={https://openreview.net/forum?id=dnDkuSzNh8}
+}
+
+@ARTICLE{Sani2021-ch,
+  title     = "Modeling behaviorally relevant neural dynamics enabled by
+               preferential subspace identification",
+  author    = "Sani, Omid G and Abbaspourazad, Hamidreza and Wong, Yan T and
+               Pesaran, Bijan and Shanechi, Maryam M",
+
+  journal   = "Nat. Neurosci.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  24,
+  number    =  1,
+  pages     = "140--149",
+  month     =  jan,
+  year      =  2021,
+  language  = "en"
+}
+
+@ARTICLE{Li2024-vt,
+  title     = "Revealing unexpected complex encoding but simple decoding
+               mechanisms in motor cortex via separating behaviorally relevant
+               neural signals",
+  author    = "Li, Yangang and Zhu, Xinyun and Qi, Yu and Wang, Yueming",
+  journal   = "Elife",
+  publisher = "eLife Sciences Publications, Ltd",
+  volume    =  12,
+  month     =  aug,
+  year      =  2024,
+  copyright = "http://creativecommons.org/licenses/by/4.0/",
+  language  = "en"
+}
+
+@ARTICLE{NCMCM-Grosse-Wentrup2024-xi,
+  title     = "Neuro-cognitive multilevel causal modeling: A framework that
+               bridges the explanatory gap between neuronal activity and
+               cognition",
+  author    = "Grosse-Wentrup, Moritz and Kumar, Akshey and Meunier, Anja and
+               Zimmer, Manuel",
+  journal   = "PLoS Comput. Biol.",
+  publisher = "Public Library of Science (PLoS)",
+  volume    =  20,
+  number    =  12,
+  pages     = "e1012674",
+  month     =  dec,
+  year      =  2024,
+  language  = "en"
+}
+
+@inproceedings{Rubenstein2017,
+  author    = {Paul K. Rubenstein and Sebastian Weichwald and Stephan Bongers and Joris M. Mooij and Dominik Janzing and Moritz Grosse-Wentrup and Bernhard Sch{\"o}lkopf},
+  title     = {Causal Consistency of Structural Equation Models},
+  booktitle = {Proceedings of the 33rd Annual Conference on Uncertainty in Artificial Intelligence (UAI 2017)},
+  pages     = {11--20},
+  year      = {2017},
+  url       = {https://www.auai.org/uai2017/proceedings/papers/11.pdf}
+}
+
+
+@ARTICLE{Pierce-Shimomura1999-km,
+  title     = "The fundamental role of pirouettes inCaenorhabditis
+               elegansChemotaxis",
+  author    = "Pierce-Shimomura, Jonathan T and Morse, Thomas M and Lockery,
+               Shawn R",
+  journal   = "J. Neurosci.",
+  publisher = "Society for Neuroscience",
+  volume    =  19,
+  number    =  21,
+  pages     = "9557--9569",
+  month     =  nov,
+  year      =  1999,
+  language  = "en"
+}
+
+@ARTICLE{Russo2018-ng,
+  title     = "Motor cortex embeds muscle-like commands in an untangled
+               population response",
+  author    = "Russo, Abigail A and Bittner, Sean R and Perkins, Sean M and
+               Seely, Jeffrey S and London, Brian M and Lara, Antonio H and
+               Miri, Andrew and Marshall, Najja J and Kohn, Adam and Jessell,
+               Thomas M and Abbott, Laurence F and Cunningham, John P and
+               Churchland, Mark M",
+  journal   = "Neuron",
+  publisher = "Elsevier BV",
+  volume    =  97,
+  number    =  4,
+  pages     = "953--966.e8",
+  month     =  feb,
+  year      =  2018,
+  copyright = "http://www.elsevier.com/open-access/userlicense/1.0/",
+  language  = "en"
+}
+
+@ARTICLE{Ahamed2021-bh,
+  title     = "Capturing the continuous complexity of behaviour in
+               Caenorhabditis elegans",
+  author    = "Ahamed, Tosif and Costa, Antonio C and Stephens, Greg J",
+  journal   = "Nat. Phys.",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  17,
+  number    =  2,
+  pages     = "275--283",
+  month     =  feb,
+  year      =  2021,
+  language  = "en"
+}
+
+@ARTICLE{Mante2013-he,
+  title     = "Context-dependent computation by recurrent dynamics in
+               prefrontal cortex",
+  author    = "Mante, Valerio and Sussillo, David and Shenoy, Krishna V and
+               Newsome, William T",
+  journal   = "Nature",
+  publisher = "Springer Science and Business Media LLC",
+  volume    =  503,
+  number    =  7474,
+  pages     = "78--84",
+  month     =  nov,
+  year      =  2013,
+  language  = "en"
+}
+
+@BOOK{Sagan1994-ho,
+  title     = "{Space-Filling} Curves",
+  author    = "Sagan, Hans",
+  publisher = "Springer",
+  series    = "Universitext",
+  month     =  sep,
+  year      =  1994,
+  address   = "New York, NY",
+  language  = "en"
+}
+
+

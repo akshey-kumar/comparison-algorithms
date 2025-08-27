@@ -38,7 +38,7 @@ b_test_1 = np.loadtxt(file_pattern.format('B_test_1')).astype(int)
 # fitting inverse embedder
 inverse_embedder = fit_inverse_embedder(x0_tr, y0_tr, x0_tst, y0_tst)
 
-'''
+
 # points to inverse embed(ventral turn)
 bout_indices, next_b, prev_b = extract_bouts(b_train_1, 7)
 print(next_b)
@@ -63,8 +63,18 @@ vis = LatentSpaceVisualiser(y0_tr, b_train_1, data.behaviour_names)
 fig, ax = vis.plot_phase_space(axis_view=(0,0,),  arrow_length_ratio=0.2, show_fig=False)
 ax.scatter(y0_inv_embed[:, 0], y0_inv_embed[:, 1], y0_inv_embed[:, 2], c='k', s=25, marker='x')
 plt.show()
-'''
 
+x0_pred = inverse_embedder(y0_inv_embed).numpy()
+print(x0_pred.shape)
+print(x0_pred)
+for i, x_i in enumerate(x0_pred):
+    plt.figure(figsize=(5, 2.5))
+    for n, x_n in enumerate(x_i):
+        plt.ylim(0, 1.1*x0_pred.max())
+        plt.scatter(n, x_n)
+    plt.title(y0_inv_embed[i])
+
+plt.show()
 
 # points to inverse embed (sustained reversal)
 bout_indices, next_b, prev_b = extract_bouts(b_train_1, 5)
